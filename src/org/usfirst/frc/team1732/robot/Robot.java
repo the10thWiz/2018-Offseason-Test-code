@@ -7,7 +7,6 @@
 
 package org.usfirst.frc.team1732.robot;
 
-import org.usfirst.frc.team1732.robot.chris.OI;
 import org.usfirst.frc.team1732.robot.commands.auto.drive.DriveToAngleWithRadius;
 import org.usfirst.frc.team1732.robot.debug.Console;
 import org.usfirst.frc.team1732.robot.debug.Debugging;
