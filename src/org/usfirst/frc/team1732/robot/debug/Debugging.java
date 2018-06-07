@@ -4,7 +4,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Consumer;
 
-import org.usfirst.frc.team1732.robot.sensor.EncoderBase;
+import org.usfirst.frc.team1732.robot.subsystems.encoders.EncoderBase;
 
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 

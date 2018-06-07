@@ -11,7 +11,7 @@ public class TalonEncoder extends EncoderBase {
 	public TalonEncoder(TalonSRX talon, FeedbackDevice selectedSensor) {
 		this.talon = talon;
 		talon.configSelectedFeedbackSensor(selectedSensor, 0, 10);
-		//FeedbackDevice.QuadEncoder;
+		// FeedbackDevice.QuadEncoder;
 		// talon.configSensorTerm(sensorTerm, feedbackDevice, timeoutMs)
 		// talon.setStatusFramePeriod(StatusFrameEnhanced.Status_3_Quadrature,
 		// Robot.PERIOD_MS, Robot.CONFIG_TIMEOUT);
@@ -32,7 +32,7 @@ public class TalonEncoder extends EncoderBase {
 	}
 
 	@Override
-	public double getPulses() {
+	public int getPulses() {
 		return talon.getSelectedSensorPosition(0);
 	}
 
@@ -45,6 +45,7 @@ public class TalonEncoder extends EncoderBase {
 		talon.setSensorPhase(sensorPhase);
 	}
 
+	@Override
 	public void zero() {
 		talon.setSelectedSensorPosition(0, 0, 10);
 	}

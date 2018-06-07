@@ -2,6 +2,9 @@ package org.usfirst.frc.team1732.robot.subsystems.encoders;
 
 public abstract class EncoderBase {
 
+	public EncoderBase() {
+	}
+
 	public EncoderReader makeReader() {
 		return new EncoderReader(this);
 	}
@@ -12,11 +15,11 @@ public abstract class EncoderBase {
 	public abstract double getPosition();
 
 	/**
-	 * @return current rate in units per 100ms
+	 * @return current rate in units per second
 	 */
 	public abstract double getRate();
 
-	public abstract double getPulses();
+	public abstract int getPulses();
 
 	/**
 	 * @param distancePerPulse
@@ -24,4 +27,9 @@ public abstract class EncoderBase {
 	 */
 	public abstract void setDistancePerPulse(double distancePerPulse);
 
+	public abstract void zero();
+
+	public boolean isConnected() {
+		return getPulses() > 10;
+	}
 }
