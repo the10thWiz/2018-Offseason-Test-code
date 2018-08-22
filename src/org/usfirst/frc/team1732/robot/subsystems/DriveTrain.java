@@ -27,13 +27,15 @@ public class DriveTrain extends Subsystem {
 		configureEncoders();
 	}
 
-	// Sets inches per encoder pulse (Note: Keep negative to align with direction of robot)
+	// Sets inches per encoder pulse (Note: Keep negative to align with direction of
+	// robot)
 	private final double INCHES_PER_PULSE = -1.0 / 482;
-	
-	// Declares robot width (Needs to be measured)
-	private final double ROBOT_WIDTH = 26; 
 
-	// Limiter limits the speed. Keep below 1.0 (Percentage) (Turns negative for override)
+	// Declares robot width (Needs to be measured)
+	private final double ROBOT_WIDTH = 26;
+
+	// Limiter limits the speed. Keep below 1.0 (Percentage) (Turns negative for
+	// override)
 	private static double limiter = 1.0;
 
 	// Motors
@@ -49,6 +51,7 @@ public class DriveTrain extends Subsystem {
 	public TalonEncoder leftEncoder;
 	public TalonEncoder rightEncoder;
 
+	@Override
 	public void periodic() {
 		SmartDashboard.putNumber("Left Encoder Distance: ", leftEncoder.getPosition());
 		SmartDashboard.putNumber("Right Encoder Distance: ", rightEncoder.getPosition());
@@ -61,7 +64,6 @@ public class DriveTrain extends Subsystem {
 		left1.setInverted(true);
 		left2.setInverted(true);
 		rightMaster.setInverted(false);
-		
 
 		// Set Followers
 		left1.set(ControlMode.Follower, leftMaster.getDeviceID());
@@ -69,7 +71,7 @@ public class DriveTrain extends Subsystem {
 		right1.set(ControlMode.Follower, rightMaster.getDeviceID());
 		right2.set(ControlMode.Follower, rightMaster.getDeviceID());
 
-		//Set Brake Mode
+		// Set Brake Mode
 		leftMaster.setNeutralMode(NeutralMode.Brake);
 		left1.setNeutralMode(NeutralMode.Coast);
 		left2.setNeutralMode(NeutralMode.Coast);
@@ -78,7 +80,6 @@ public class DriveTrain extends Subsystem {
 		right1.setNeutralMode(NeutralMode.Coast);
 		right2.setNeutralMode(NeutralMode.Coast);
 
-		
 		// Initialize at rest
 		leftMaster.set(ControlMode.PercentOutput, 0);
 		rightMaster.set(ControlMode.PercentOutput, 0);
@@ -96,6 +97,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	// Default Command
+	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveWithJoysticks());
 	}
@@ -105,24 +107,28 @@ public class DriveTrain extends Subsystem {
 		leftMaster.set(ControlMode.PercentOutput, limiter * left);
 		rightMaster.set(ControlMode.PercentOutput, limiter * right);
 	}
-	
-	//Methods - auton
-	public void drive(double left, double right){
-    	leftMaster.set(ControlMode.PercentOutput, limiter * left);
+
+	// Methods - auton
+	public void drive(double left, double right) {
+		leftMaster.set(ControlMode.PercentOutput, limiter * left);
 		rightMaster.set(ControlMode.PercentOutput, limiter * right);
-    }
+	}
 
 	// Methods - helper
 	public void resetEncoders() {
 		rightEncoder.zero();
 		leftEncoder.zero();
 	}
-	
+
 	public double getRobotRadius() {
 		return ROBOT_WIDTH / 2;
 	}
-	
-	public void toggleLimiter(){
+
+	public void toggleLimiter() {
 		limiter = -limiter;
+	}
+
+	public void stop() {
+		drive(0, 0);
 	}
 }
